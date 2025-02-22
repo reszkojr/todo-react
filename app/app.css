@@ -14,4 +14,8 @@ body {
 	@media (prefers-color-scheme: dark) {
 		color-scheme: dark;
 	}
+
+    background-image: url("../public/waves-bg.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
