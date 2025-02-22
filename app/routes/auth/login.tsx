@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import Button from '~/components/Button';
@@ -43,14 +43,14 @@ export default function Login() {
 					<h1 className='text-3xl font-bold text-white'>Login</h1>
 					<h2 className='text-white'>
 						Ainda não tem uma conta?{' '}
-						<a href='/auth/register' className='text-teal-400 hover:underline'>
+						<Link to='/auth/register' className='text-teal-400 hover:underline'>
 							Cadastre-se aqui
-						</a>
+						</Link>
 					</h2>
 				</div>
 				<form onSubmit={handleSubmit(onSubmit)} className='space-y-6'>
-					<FloatingTextInput label='Email' type='email' register={register} requiredMessage='Email é obrigatório' errorMessage={errors.email?.message as string} />
-					<FloatingTextInput label='Senha' type={showPassword ? 'text' : 'password'} register={register} requiredMessage='Senha é obrigatória' errorMessage={errors.password?.message as string} className='mb-3' />
+					<FloatingTextInput label='Email' name='email' type='email' register={register} requiredMessage='Email é obrigatório' errorMessage={errors.email?.message as string} />
+					<FloatingTextInput label='Senha' name='password' type={showPassword ? 'text' : 'password'} register={register} requiredMessage='Senha é obrigatória' errorMessage={errors.password?.message as string} className='mb-3' />
 					<Checkbox label='Mostrar senha' register={register} checked={showPassword} onChange={setShowPassword} />
 					<div className='flex items-center justify-end'>
 						<Button type='submit' label='Login' onClick={() => console.log('Button clicked')} className='w-2/5' />

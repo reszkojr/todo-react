@@ -11,11 +11,17 @@ html,
 body {
 	@apply bg-white dark:bg-gray-950;
 
+	:root {
+		--toastify-color-dark: var(--color-gray-700) !important;
+		--toastify-color-info: #359ba6 !important;
+		--toastify-color-success: #33b987 !important;
+	}
+
 	@media (prefers-color-scheme: dark) {
 		color-scheme: dark;
 	}
 
-    background-image: url("/waves-bg.svg");
-    background-repeat: no-repeat;
-    background-size: cover;
+	background-image: url('/waves-bg.svg');
+	background-repeat: no-repeat;
+	background-size: cover;
 }
