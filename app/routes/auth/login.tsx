@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Button from '~/components/Button';
 import Checkbox from '~/components/Checkbox';
 import FloatingTextInput from '~/components/FloatingTextInput';
+import { toast } from 'react-toastify';
+import { login as loginUser } from '~/services/auth';
 
 export default function Login() {
 	const {
@@ -19,19 +21,15 @@ export default function Login() {
 
 	const onSubmit = async (data: any) => {
 		try {
-			alert('trying to log-in already?');
-			navigate('/');
+			await loginUser({
+				email: data.email,
+				password: data.password,
+			});
+			toast.success('Login realizado com sucesso!');
+			// navigate('/todos');
 		} catch (error) {
 			if (error instanceof Error) {
-				console.log(error);
-				setError('email', {
-					type: 'manual',
-					message: error.message,
-				});
-				setError('password', {
-					type: 'manual',
-					message: error.message,
-				});
+                toast.error(error.message);
 			}
 		}
 	};
