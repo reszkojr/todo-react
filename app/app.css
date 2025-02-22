@@ -20,8 +20,14 @@ body {
 	@media (prefers-color-scheme: dark) {
 		color-scheme: dark;
 	}
+}
 
+body {
+	margin: 0;
+	height: 100vh;
 	background-image: url('/waves-bg.svg');
-	background-repeat: no-repeat;
 	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 }
