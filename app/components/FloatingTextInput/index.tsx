@@ -1,5 +1,5 @@
 import React from 'react';
-import type { TextInputProps } from './TextInput';
+import type { TextInputProps } from '../TextInput';
 
 const FloatingTextInput: React.FC<TextInputProps> = ({ label, type, name, register, requiredMessage, errorMessage, className = '', labelClassName = '', inputClassName = '', errorClassName = '' }) => {
 	return (
