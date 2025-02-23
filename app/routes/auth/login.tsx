@@ -26,7 +26,7 @@ export default function Login() {
 				password: data.password,
 			});
 			toast.success('Login realizado com sucesso!');
-			// navigate('/todos');
+			navigate('/todos');
 		} catch (error) {
 			if (error instanceof Error) {
 				toast.error(error.message);
