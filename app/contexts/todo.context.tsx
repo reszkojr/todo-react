@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { fetchTodos } from '~/services/todo.service';
 import type Todo from '~/types/Todo';
 
 interface TodoContextProps {
@@ -29,16 +30,9 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children
 	const getTodos = async () => {
 		try {
 			// TODO: create a getTodos service
-			const response = { data: [
-                {
-                id: 1,
-                title: 'Create a getTodos service',  
-                description: 'Create a getTodos service to fetch todos from the server',
-                status: 'pending'
-                }
-            ] };
+			const response = await fetchTodos();
 
-			setTodos(response.data as Todo[]);
+			setTodos(response.data);
 		} catch (error) {
 			console.log('Erro ao buscar todos: ', error);
 		} finally {
