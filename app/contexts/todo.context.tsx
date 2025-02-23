@@ -1,10 +1,11 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { fetchTodos } from '~/services/todo.service';
+import { fetchTodos, updateTodo } from '~/services/todo.service';
 import type Todo from '~/types/Todo';
 
 interface TodoContextProps {
 	todos: Todo[];
-    getTodos: () => Promise<void>;
+	getTodos: () => Promise<void>;
+	updateTodoStatus: (todo: Todo, status: 'pending' | 'in progress' | 'completed') => Promise<void>;
 	loading: boolean;
 }
 
@@ -29,7 +30,6 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
 	const getTodos = async () => {
 		try {
-			// TODO: create a getTodos service
 			const response = await fetchTodos();
 
 			setTodos(response.data);
@@ -40,5 +40,13 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children
 		}
 	};
 
-	return <TodoContext.Provider value={{ todos, getTodos, loading}}>{children}</TodoContext.Provider>;
+	const updateTodoStatus = async (todo: Todo, status: 'pending' | 'in progress' | 'completed') => {
+		try {
+			await updateTodo(todo.id, { status });
+		} catch (error) {
+			throw new Error('Erro ao atualizar o status do todo');
+		}
+	};
+
+	return <TodoContext.Provider value={{ todos, getTodos, updateTodoStatus, loading }}>{children}</TodoContext.Provider>;
 };

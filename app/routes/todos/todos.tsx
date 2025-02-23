@@ -1,4 +1,4 @@
-import React, { use, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { DndContext, type DragEndEvent } from '@dnd-kit/core';
 import type Todo from '~/types/Todo';
 import DroppableColumn from '~/components/todos/DraggableColumn';
@@ -11,9 +11,14 @@ const statuses = {
 	completed: 'Completed',
 };
 
-
 const TodosPage = () => {
-    const { todos } = useTodo();
+	const { todos, updateTodoStatus } = useTodo();
+	const [todosElements, setTodosElements] = useState<Todo[]>(todos);
+
+	useEffect(() => {
+		setTodosElements(todos);
+	}, [todos]);
+
 
 	const updateItems = (event: DragEndEvent) => {
 		const { active, over } = event;
@@ -22,10 +27,10 @@ const TodosPage = () => {
 			const activeTodo = todos.find((todo) => todo.id.toString() === active.id);
 			const overStatus = over.id;
 
-            // TODO: update todo status on drag end
-			// if (activeTodo && activeTodo.status !== overStatus) {
-			// 	setTodos((prevTodos) => prevTodos.map((todo) => (todo.id === activeTodo.id ? { ...todo, status: overStatus } : todo)) as Array<Todo>);
-			// }
+			if (activeTodo) {
+				setTodosElements((prevTodos) => prevTodos.map((todo) => (todo.id === activeTodo.id ? { ...todo, status: overStatus } : todo)) as Array<Todo>);
+				updateTodoStatus(activeTodo, overStatus as 'pending' | 'in progress' | 'completed');
+			}
 		}
 	};
 
@@ -34,7 +39,7 @@ const TodosPage = () => {
 			<div className='flex space-x-4 p-36'>
 				{Object.keys(statuses).map((status) => (
 					<DroppableColumn key={status} id={status} title={statuses[status as keyof typeof statuses]}>
-						{todos
+						{todosElements
 							.filter((todo) => todo.status === status)
 							.map((todo) => (
 								<TodoItem key={todo.id} todo={todo} />
