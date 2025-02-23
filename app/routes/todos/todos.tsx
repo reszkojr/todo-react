@@ -19,7 +19,6 @@ const TodosPage = () => {
 		setTodosElements(todos);
 	}, [todos]);
 
-
 	const updateItems = (event: DragEndEvent) => {
 		const { active, over } = event;
 
@@ -35,19 +34,25 @@ const TodosPage = () => {
 	};
 
 	return (
-		<DndContext onDragEnd={updateItems}>
-			<div className='flex space-x-4 p-36'>
-				{Object.keys(statuses).map((status) => (
-					<DroppableColumn key={status} id={status} title={statuses[status as keyof typeof statuses]}>
-						{todosElements
-							.filter((todo) => todo.status === status)
-							.map((todo) => (
-								<TodoItem key={todo.id} todo={todo} />
-							))}
-					</DroppableColumn>
-				))}
+		<>
+			<div className='flex p-3 mt-6'>
+				<h1 className='text-2xl font-bold'>To-do list</h1>
+                
 			</div>
-		</DndContext>
+			<DndContext onDragEnd={updateItems}>
+				<div className='flex space-x-4 p-3'>
+					{Object.keys(statuses).map((status) => (
+						<DroppableColumn key={status} id={status} title={statuses[status as keyof typeof statuses]}>
+							{todosElements
+								.filter((todo) => todo.status === status)
+								.map((todo) => (
+									<TodoItem key={todo.id} todo={todo} />
+								))}
+						</DroppableColumn>
+					))}
+				</div>
+			</DndContext>
+		</>
 	);
 };
 

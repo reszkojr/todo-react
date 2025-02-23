@@ -12,7 +12,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
     };
 
     return (
-        <div ref={setNodeRef} style={style} {...listeners} {...attributes} className='p-4 mb-2 bg-gray-700 rounded shadow'>
+        <div ref={setNodeRef} style={style} {...listeners} {...attributes} className='p-4 mb-2 bg-background-500 rounded shadow'>
             <h3 className='font-bold'>{todo.title}</h3>
             <p>{todo.description}</p>
         </div>
