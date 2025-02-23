@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Button from '~/components/Button';
 import Checkbox from '~/components/Checkbox';
 import FloatingTextInput from '~/components/FloatingTextInput';
-import { register as registerUser } from '~/services/auth';
+import { register as registerUser } from '~/services/auth.service';
 import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
 
@@ -26,11 +26,17 @@ export default function Register() {
 				password: data.password,
 				username: data.username,
 			});
-			toast.success(<div>Registrado com sucesso!<br/>Agora, realize o login utilizando o mesmo email e senha que cadastrou</div>);
+			toast.success(
+				<div>
+					Registrado com sucesso!
+					<br />
+					Agora, realize o login utilizando o mesmo email e senha que cadastrou
+				</div>
+			);
 			navigate('/auth/login');
 		} catch (error) {
-            if (error instanceof AxiosError) {                
-                toast.error(error.response?.data);
+			if (error instanceof AxiosError) {
+				toast.error(error.response?.data);
 			}
 		}
 	};

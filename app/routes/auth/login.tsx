@@ -5,7 +5,7 @@ import Button from '~/components/Button';
 import Checkbox from '~/components/Checkbox';
 import FloatingTextInput from '~/components/FloatingTextInput';
 import { toast } from 'react-toastify';
-import { login as loginUser } from '~/services/auth';
+import { login as loginUser } from '~/services/auth.service';
 
 export default function Login() {
 	const {
@@ -29,7 +29,7 @@ export default function Login() {
 			// navigate('/todos');
 		} catch (error) {
 			if (error instanceof Error) {
-                toast.error(error.message);
+				toast.error(error.message);
 			}
 		}
 	};

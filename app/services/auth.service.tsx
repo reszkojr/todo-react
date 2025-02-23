@@ -1,4 +1,4 @@
-import { clearAuthTokens, setAccessToken, setAuthTokens } from "axios-jwt";
+import { clearAuthTokens, setAuthTokens } from "axios-jwt";
 import { api } from "~/api";
 
 interface LoginParams { 
