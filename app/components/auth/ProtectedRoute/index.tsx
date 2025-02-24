@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import { useLocation, useNavigate } from 'react-router'
+import { Outlet, useLocation, useNavigate } from 'react-router'
 
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+const ProtectedRoute = () => {
     const navigator = useNavigate();
 
     let isAuthenticated;
@@ -13,7 +13,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
         }
     }, []);
 
-    return <>{children}</>
+    return <Outlet />
 }
 
 export default ProtectedRoute;
