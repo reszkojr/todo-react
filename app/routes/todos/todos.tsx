@@ -4,6 +4,8 @@ import type Todo from '~/types/Todo';
 import DroppableColumn from '~/components/todos/DraggableColumn';
 import TodoItem from '~/components/todos/TodoItem';
 import { useTodo } from '~/contexts/todo/todo.context';
+import Button from '~/components/Button';
+import { LuPlus } from 'react-icons/lu';
 
 const statuses = {
     pending: 'Pending',
@@ -12,7 +14,7 @@ const statuses = {
 };
 
 const TodosPage = () => {
-    const { todos, updateTodoStatus } = useTodo();
+    const { todos, updateTodoStatus, createTodo } = useTodo();
     const [todosElements, setTodosElements] = useState<Todo[]>(todos);
 
     useEffect(() => {
@@ -23,21 +25,34 @@ const TodosPage = () => {
         const { active, over } = event;
 
         if (over) {
-            const activeTodo = todos.find((todo) => todo.id.toString() === active.id);
+            const activeTodo = todos.find((todo) => todo.id?.toString() === active.id);
             const overStatus = over.id;
 
             if (activeTodo) {
                 setTodosElements((prevTodos) => prevTodos.map((todo) => (todo.id === activeTodo.id ? { ...todo, status: overStatus } : todo)) as Array<Todo>);
-                updateTodoStatus(activeTodo, overStatus as 'pending' | 'in progress' | 'completed');
+                updateTodoStatus(activeTodo.id!, overStatus as 'pending' | 'in progress' | 'completed');
             }
         }
     };
 
     return (
         <>
-            <div className='flex p-3 mt-6'>
+            <div className='flex justify-between p-3 mt-6 px-3'>
                 <h1 className='text-2xl font-bold'>To-do list</h1>
-
+                <Button
+                    startIcon={<LuPlus />}
+                    type='button'
+                    label='Adicionar um Todo'
+                    className='text-sm'
+                    onClick={async () => {
+                        const newTodo: Todo = {
+                            title: 'New Todo',
+                            description: 'New Todo',
+                            status: 'pending',
+                        };
+                        await createTodo(newTodo);
+                    }}
+                />
             </div>
             <DndContext onDragEnd={updateItems}>
                 <div className='flex space-x-4 p-3'>

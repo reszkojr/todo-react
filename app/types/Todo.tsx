@@ -1,5 +1,5 @@
 export default interface Todo {
-    id: number;
+    id?: number;
     title: string;
     description: string;
     status: 'pending' | 'in progress' | 'completed';
