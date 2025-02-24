@@ -4,7 +4,7 @@ import type Todo from "~/types/Todo";
 
 const TodoItem = ({ todo }: { todo: Todo }) => {
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
-        id: todo.id.toString(),
+        id: todo.id!.toString(),
     });
 
     const style = {
