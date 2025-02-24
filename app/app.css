@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
 @import 'tailwindcss';
 
 @theme {
@@ -10,17 +11,17 @@
 html,
 body {
 	@theme {
-		--color-background-50: oklch(42.59% 0.064 183.16);
-		--color-background-100: oklch(39.97% 0.06 183.74);
-		--color-background-200: oklch(37.34% 0.055 184.33);
-		--color-background-300: oklch(33.26% 0.048 184.58);
-		--color-background-400: oklch(30.81% 0.044 183.39);
-		--color-background-500: oklch(26.51% 0.036 183.48);
-		--color-background-600: oklch(22.13% 0.027 187.21);
-		--color-background-700: oklch(19% 0.022 190.24);
-		--color-background-800: oklch(14.84% 0.016 187.84);
-		--color-background-900: oklch(12.46% 0.015 185.11);
-		--color-background-950: oklch(9.93% 0.011 195.47);
+		--color-background-50: oklch(41.02% 0.026 196.19);
+		--color-background-100: oklch(39.98% 0.025 196.2);
+		--color-background-200: oklch(38.19% 0.024 196.19);
+		--color-background-300: oklch(37.13% 0.023 196.21);
+		--color-background-400: oklch(34.92% 0.022 196.19);
+		--color-background-500: oklch(32.74% 0.02 196.23);
+		--color-background-600: oklch(30.54% 0.017 196.27);
+		--color-background-700: oklch(28.21% 0.016 196.26);
+		--color-background-800: oklch(25.91% 0.014 196.32);
+		--color-background-900: oklch(24.32% 0.013 196.34);
+		--color-background-950: oklch(17.69% 0.008 196.4);
 
 		--color-textcolor-50: oklch(95.42% 0.022 189.88);
 		--color-textcolor-100: oklch(93.19% 0.033 189.5);
@@ -35,7 +36,11 @@ body {
 		--color-textcolor-950: oklch(47.2% 0.07 185.78);
 	}
 
-	@apply bg-background-800 text-textcolor-50;
+	@apply bg-background-900 text-textcolor-50;
+	h1 {
+		font-family: 'Source Serif 4', serif;
+		font-weight: 800;
+	}
 
 	:root {
 		--toastify-color-dark: var(--color-gray-700) !important;
