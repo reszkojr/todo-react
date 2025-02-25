@@ -79,7 +79,7 @@ export default function Sidebar() {
                     <span>Create Todo</span>
                 </button>
             </div>
-            <div className='flex-1'>
+            <div className='flex-1 relative'>
                 <Outlet />
             </div>
         </div>
