@@ -1,100 +1,108 @@
-# Welcome to React Router!
 
-A modern, production-ready template for building full-stack React applications using React Router.
+# Todo React
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+Este é o frontend do projeto Todo, desenvolvido com React, Typescript, React Router e Tailwind.
 
-## Features
+## Conceitos e Decisões Técnicas
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+### Tecnologias Utilizadas
 
-## Getting Started
+- **React**: Biblioteca JavaScript (neste caso, Typescript) para construção de interfaces de usuário.
+- **Tailwind CSS**: Framework CSS criado para estilização rápida e eficiente.
+- **React Hook Form**: Biblioteca para gerenciamento de formulários em React.
+- **Axios**: Cliente HTTP para realizar requisições à API backend.
+- **React Router**: Biblioteca para gerenciamento de rotas no React.
+- **Headless UI**: Componentes UI acessíveis e sem estilo para React.
+- **Dnd-kit**: Biblioteca para implementar funcionalidades de arrastar e soltar (drag and drop).
 
-### Installation
+### Estrutura do Projeto
 
-Install the dependencies:
+- **app/components**: Componentes reutilizáveis do React.
+- **app/contexts**: Contextos do React para gerenciamento de estado global.
+- **app/routes**: Componentes de página e rotas do React Router.
+- **app/services**: Serviços para comunicação com a API backend.
+- **app/types**: Tipos utilizados pela aplicação.
 
-```bash
-npm install
-```
+### Decisões Técnicas
 
-### Development
+- **Tailwind CSS** foi escolhido para permitir estilização rápida e consistente, utilizando classes utilitárias;
+- **React Hook Form** foi escolhido para simplificar o gerenciamento de formulários e validação;
+- **Axios** foi escolhido pela sua simplicidade e suporte a promessas para realizar requisições HTTP;
+- **React Router** foi escolhido para gerenciar a navegação entre páginas de forma eficiente.
+- **Headless UI** foi escolhido para fornecer a funcionalidade modal na criação de Todos;
+- **Dnd-kit** foi escolhido para implementar funcionalidades de *drag and drop* de forma acessível e bonitinha.
 
-Start the development server with HMR:
+## Configuração do Projeto
 
-```bash
-npm run dev
-```
+### Requisitos
 
-Your application will be available at `http://localhost:5173`.
+- Node.js (versão 20 ou superior)
+- npm ou pnpm
+- API backend rodando na porta 3000 (siga as instruções em [todo-express](https://github.com/reszkojr/todo-express?tab=readme-ov-file#configura%C3%A7%C3%A3o-do-projeto))
 
-## Building for Production
+### Configuração Local
 
-Create a production build:
-
-```bash
-npm run build
-```
-
-## Deployment
-
-### Docker Deployment
-
-This template includes three Dockerfiles optimized for different package managers:
-
-- `Dockerfile` - for npm
-- `Dockerfile.pnpm` - for pnpm
-- `Dockerfile.bun` - for bun
-
-To build and run using Docker:
+1. Clone o repositório:
 
 ```bash
-# For npm
-docker build -t my-app .
-
-# For pnpm
-docker build -f Dockerfile.pnpm -t my-app .
-
-# For bun
-docker build -f Dockerfile.bun -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
+git clone https://github.com/reszkojr/todo-react.git
+cd todo-react
 ```
 
-The containerized application can be deployed to any platform that supports Docker, including:
+2. Instale as dependências:
 
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
+```bash
+pnpm install
 ```
 
-## Styling
+3. Inicie o servidor de desenvolvimento:
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+```bash
+pnpm run dev
+```
 
----
+O aplicativo estará disponível em `http://localhost:5173`.
 
-Built with ❤️ using React Router.
+### Configuração com Docker
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/reszkojr/todo-react.git
+cd todo-react
+```
+
+2. Construa a imagem Docker:
+
+```bash
+docker build -t todo-react .
+```
+
+3. Execute o contêiner:
+
+```bash
+docker run -p 5173:5173 todo-react
+```
+
+O aplicativo estará disponível em `http://localhost:5173`.
+
+## Estrutura de Diretórios
+
+```plaintext
+todo-react/
+├── public/                 # Arquivos públicos
+├── app/
+│   ├── components/         # Componentes reutilizáveis
+│   ├── contexts/           # Contextos do React
+│   ├── routes/             # Componentes de página e rotas
+│   ├── services/           # Serviços para comunicação com a API
+│   ├── types/              # Tipos
+│   ├── App.tsx             # Componente principal do aplicativo
+│   ├── index.tsx           # Ponto de entrada do React
+├── .dockerignore           # Arquivos e diretórios ignorados pelo Docker
+├── Dockerfile              # Configuração do Docker
+├── package.json            # Dependências e scripts do projeto
+├── pnpm-lock.yaml          # Arquivo de bloqueio do pnpm
+├── tailwind.config.js      # Configuração do Tailwind
+├── tsconfig.json           # Configuração do TypeScript
+```

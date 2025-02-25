@@ -1,6 +1,7 @@
-import { layout, route } from '@react-router/dev/routes';
+import { index, layout, route } from '@react-router/dev/routes';
 
 export default [
+    index('routes/home.tsx'),
     route('auth/register', 'routes/auth/register.tsx'),
     route('auth/login', 'routes/auth/login.tsx'),
     layout('components/auth/ProtectedRoute/index.tsx', [
