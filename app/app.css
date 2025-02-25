@@ -2,58 +2,58 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
 @import 'tailwindcss';
 
+@config "../tailwind.config.js";
+
 @theme {
 	--font-sans: 'Inter Tight', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-}
 
-@config "../tailwind.config.js";
+	--color-background-50: oklch(41.02% 0.026 196.19);
+	--color-background-100: oklch(39.98% 0.025 196.2);
+	--color-background-200: oklch(38.19% 0.024 196.19);
+	--color-background-300: oklch(37.13% 0.023 196.21);
+	--color-background-400: oklch(34.92% 0.022 196.19);
+	--color-background-500: oklch(32.74% 0.02 196.23);
+	--color-background-600: oklch(30.54% 0.017 196.27);
+	--color-background-700: oklch(28.21% 0.016 196.26);
+	--color-background-800: oklch(25.91% 0.014 196.32);
+	--color-background-900: oklch(24.32% 0.013 196.34);
+	--color-background-950: oklch(17.69% 0.008 196.4);
+
+	--color-textcolor-50: oklch(95.42% 0.022 189.88);
+	--color-textcolor-100: oklch(93.19% 0.033 189.5);
+	--color-textcolor-200: oklch(89.25% 0.051 188.59);
+	--color-textcolor-300: oklch(85.64% 0.069 187.91);
+	--color-textcolor-400: oklch(81.91% 0.085 187.11);
+	--color-textcolor-500: oklch(78.36% 0.098 187.07);
+	--color-textcolor-600: oklch(74.55% 0.11 186.11);
+	--color-textcolor-700: oklch(68.31% 0.104 185.33);
+	--color-textcolor-800: oklch(60.38% 0.092 185.54);
+	--color-textcolor-900: oklch(52.18% 0.078 184.68);
+	--color-textcolor-950: oklch(47.2% 0.07 185.78);
+
+	--color-gray-50: oklch(49.73% 0.02 201.18);
+	--color-gray-100: oklch(49.73% 0.02 201.18);
+	--color-gray-200: oklch(50.67% 0.021 196.52);
+	--color-gray-300: oklch(52.46% 0.02 200.91);
+	--color-gray-400: oklch(53.42% 0.022 200.66);
+	--color-gray-500: oklch(54.46% 0.021 200.66);
+	--color-gray-600: oklch(47.67% 0.018 201.49);
+	--color-gray-700: oklch(41.01% 0.015 202.73);
+	--color-gray-800: oklch(34.01% 0.012 196.6);
+	--color-gray-900: oklch(26.68% 0.009 196.65);
+	--color-gray-950: oklch(23.13% 0.006 214.42);
+
+	--font-serif: 'Source Serif 4', 'serif';
+}
 
 html,
 body {
-	@theme {
-		--color-background-50: oklch(41.02% 0.026 196.19);
-		--color-background-100: oklch(39.98% 0.025 196.2);
-		--color-background-200: oklch(38.19% 0.024 196.19);
-		--color-background-300: oklch(37.13% 0.023 196.21);
-		--color-background-400: oklch(34.92% 0.022 196.19);
-		--color-background-500: oklch(32.74% 0.02 196.23);
-		--color-background-600: oklch(30.54% 0.017 196.27);
-		--color-background-700: oklch(28.21% 0.016 196.26);
-		--color-background-800: oklch(25.91% 0.014 196.32);
-		--color-background-900: oklch(24.32% 0.013 196.34);
-		--color-background-950: oklch(17.69% 0.008 196.4);
-
-		--color-textcolor-50: oklch(95.42% 0.022 189.88);
-		--color-textcolor-100: oklch(93.19% 0.033 189.5);
-		--color-textcolor-200: oklch(89.25% 0.051 188.59);
-		--color-textcolor-300: oklch(85.64% 0.069 187.91);
-		--color-textcolor-400: oklch(81.91% 0.085 187.11);
-		--color-textcolor-500: oklch(78.36% 0.098 187.07);
-		--color-textcolor-600: oklch(74.55% 0.11 186.11);
-		--color-textcolor-700: oklch(68.31% 0.104 185.33);
-		--color-textcolor-800: oklch(60.38% 0.092 185.54);
-		--color-textcolor-900: oklch(52.18% 0.078 184.68);
-		--color-textcolor-950: oklch(47.2% 0.07 185.78);
-
-		--color-gray-50: oklch(49.73% 0.02 201.18);
-		--color-gray-100: oklch(49.73% 0.02 201.18);
-		--color-gray-200: oklch(50.67% 0.021 196.52);
-		--color-gray-300: oklch(52.46% 0.02 200.91);
-		--color-gray-400: oklch(53.42% 0.022 200.66);
-		--color-gray-500: oklch(54.46% 0.021 200.66);
-		--color-gray-600: oklch(47.67% 0.018 201.49);
-		--color-gray-700: oklch(41.01% 0.015 202.73);
-		--color-gray-800: oklch(34.01% 0.012 196.6);
-		--color-gray-900: oklch(26.68% 0.009 196.65);
-		--color-gray-950: oklch(23.13% 0.006 214.42);
-	}
-
-    @theme {  --font-serif: "Source Serif 4", "serif"; }
-
 	@apply bg-background-900 text-textcolor-50;
 	h1 {
-		font-family: 'Source Serif 4', serif;
-		font-weight: 800;
+		@apply font-serif font-extrabold;
+	}
+	h2 {
+		@apply font-serif font-semibold;
 	}
 
 	:root {
@@ -70,7 +70,7 @@ body {
 body {
 	margin: 0;
 	height: 100vh;
-    overflow: hidden;
+	overflow: hidden;
 	background-image: url('/waves-bg.svg');
 	background-size: cover;
 	background-position: center;
