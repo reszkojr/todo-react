@@ -17,6 +17,10 @@ export const updateTodo = async (id: number, params: Partial<Todo>): Promise<Tod
     return await api.put(`/api/todos/${id}`, params);
 }
 
-export const createNewTodo = async (todo: Todo): Promise<CreateTodoResponse> => {
+export const createTodo = async (todo: Todo): Promise<CreateTodoResponse> => {
     return await api.post(`/api/todos`, todo);
+}
+
+export const deleteTodo = async (id: number): Promise<void> => {
+    await api.delete(`/api/todos/${id}`);
 }

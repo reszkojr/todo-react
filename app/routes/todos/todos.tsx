@@ -53,7 +53,7 @@ const TodosPage = () => {
 		<div id='todos'>
 			<div className='flex justify-between pt-6 mt-8 pb-4 mb-4 border-b-1 mx-8 border-b-background-300'>
 				<h1 className='text-4xl font-bold'>To-do list</h1>
-				<Button startIcon={<LuPlus />} type='button' label='Create a Todo' className='text-sm' onClick={() => setIsModalOpen(true)} />
+				<Button startIcon={<LuPlus size={18} />} type='button' label='Create a Todo' className='text-sm' onClick={() => setIsModalOpen(true)} />
 			</div>
 			<DndContext onDragStart={(event: DragStartEvent) => setActiveId(event.active.id)} onDragEnd={updateItems}>
 				<div className='flex space-x-4 pt-3 px-8'>

@@ -1,12 +1,13 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { createNewTodo, fetchTodos, updateTodo } from '~/services/todo.service';
+import { createTodo as createTodoService, fetchTodos, updateTodo, deleteTodo as deleteTodoService } from '~/services/todo.service';
 import type Todo from '~/types/Todo';
 
 interface TodoContextProps {
 	todos: Todo[];
 	getTodos: () => Promise<void>;
 	updateTodoStatus: (todoId: number, status: 'pending' | 'in progress' | 'completed') => Promise<void>;
-    createTodo: (todo: Todo) => Promise<Todo>;
+	createTodo: (todo: Todo) => Promise<Todo>;
+	deleteTodo: (todo: Todo) => Promise<void>;
 	loading: boolean;
 }
 
@@ -32,33 +33,43 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children
 	const getTodos = async () => {
 		try {
 			const response = await fetchTodos();
-
 			setTodos(response.data);
 		} catch (error) {
-            throw new Error('Erro requisitando todos');
+			throw new Error('Erro requisitando todos');
 		} finally {
 			setLoading(false);
 		}
 	};
 
-    const createTodo = async (todo: Todo): Promise<Todo> => {
-        try {
-            const response = await createNewTodo(todo);
-            const newTodo = response.data
+	const createTodo = async (todo: Todo): Promise<Todo> => {
+		try {
+			const response = await createTodoService(todo);
+			const newTodo = response.data;
 			setTodos((prevTodos) => [...prevTodos, newTodo]);
-            return newTodo;
-        } catch (error) {
-            throw new Error('Erro ao criar um novo todo');
-        }
-    };
+			return newTodo;
+		} catch (error) {
+			throw new Error('Erro ao criar um novo todo');
+		}
+	};
 
 	const updateTodoStatus = async (todoId: number, status: 'pending' | 'in progress' | 'completed') => {
 		try {
 			await updateTodo(todoId, { status });
+			setTodos((prevTodos) => prevTodos.map((todo) => (todo.id === todoId ? { ...todo, status } : todo)));
 		} catch (error) {
 			throw new Error('Erro ao atualizar o status do todo');
 		}
 	};
 
-    return <TodoContext.Provider value={{ todos, getTodos, updateTodoStatus, createTodo, loading }}>{children}</TodoContext.Provider>;
+	const deleteTodo = async (todo: Todo) => {
+		try {
+            console.log('deleteing todo', todo);
+			await deleteTodoService(todo.id!);
+			setTodos((prevTodos) => prevTodos.filter((t) => t.id !== todo.id));
+		} catch (error) {
+			throw new Error('Erro ao deletar o todo');
+		}
+	};
+
+	return <TodoContext.Provider value={{ todos, getTodos, updateTodoStatus, createTodo, deleteTodo, loading }}>{children}</TodoContext.Provider>;
 };
