@@ -72,13 +72,13 @@ git clone https://github.com/reszkojr/todo-react.git
 cd todo-react
 ```
 
-2. Construa a imagem Docker:
+2. Realize o build na imagem Docker:
 
 ```bash
 docker build -t todo-react .
 ```
 
-3. Execute o contêiner:
+3. Execute o container:
 
 ```bash
 docker run -p 5173:5173 todo-react
