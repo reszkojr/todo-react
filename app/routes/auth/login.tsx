@@ -27,7 +27,7 @@ export default function Login() {
                 password: data.password,
             });
             toast.success('Login successful!');
-            navigate('/todos');
+            navigate('/todos/view/columns');
         } catch (error) {
             if (isAxiosError(error)) {
                 return toast.error(error.request?.response);
