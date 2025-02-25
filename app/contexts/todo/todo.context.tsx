@@ -1,11 +1,12 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { createTodo as createTodoService, fetchTodos, updateTodo, deleteTodo as deleteTodoService } from '~/services/todo.service';
+import { createTodo as createTodoService, fetchTodos, updateTodo as updateTodoService, deleteTodo as deleteTodoService } from '~/services/todo.service';
 import type Todo from '~/types/Todo';
 
 interface TodoContextProps {
 	todos: Todo[];
 	getTodos: () => Promise<void>;
 	updateTodoStatus: (todoId: number, status: 'pending' | 'in progress' | 'completed') => Promise<void>;
+    updateTodo: (todo: Todo) => Promise<Todo>;
 	createTodo: (todo: Todo) => Promise<Todo>;
 	deleteTodo: (todo: Todo) => Promise<void>;
 	loading: boolean;
@@ -54,8 +55,18 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
 	const updateTodoStatus = async (todoId: number, status: 'pending' | 'in progress' | 'completed') => {
 		try {
-			await updateTodo(todoId, { status });
+			await updateTodoService(todoId, { status });
 			setTodos((prevTodos) => prevTodos.map((todo) => (todo.id === todoId ? { ...todo, status } : todo)));
+		} catch (error) {
+			throw new Error('Erro ao atualizar o status do todo');
+		}
+	};
+
+    const updateTodo = async (todo: Todo): Promise<Todo> => {
+		try {
+			const response = await updateTodoService(todo.id!, todo);
+			setTodos((prevTodos) => prevTodos.map((t) => (t.id === todo.id ? todo : t)));
+            return response;
 		} catch (error) {
 			throw new Error('Erro ao atualizar o status do todo');
 		}
@@ -71,5 +82,5 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children
 		}
 	};
 
-	return <TodoContext.Provider value={{ todos, getTodos, updateTodoStatus, createTodo, deleteTodo, loading }}>{children}</TodoContext.Provider>;
+	return <TodoContext.Provider value={{ todos, getTodos, updateTodoStatus, createTodo, updateTodo, deleteTodo, loading }}>{children}</TodoContext.Provider>;
 };
