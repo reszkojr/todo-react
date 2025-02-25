@@ -7,4 +7,6 @@ WORKDIR /app
 
 RUN npm install --global corepack@latest && pnpm install
 
+ENV VITE_API_URL=http://localhost:3000
+
 CMD ["pnpm", "run", "dev"]
