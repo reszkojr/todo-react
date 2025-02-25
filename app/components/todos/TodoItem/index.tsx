@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
 import { LuGripHorizontal, LuPencil, LuTrash } from 'react-icons/lu';
@@ -14,6 +14,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [title, setTitle] = useState(todo.title);
     const [description, setDescription] = useState(todo.description);
+    const todoRef = useRef<HTMLDivElement>(null);
 
     const style = {
         transform: CSS.Translate.toString(transform),
@@ -36,9 +37,27 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
         setIsEditing(false);
     };
 
+    const handleClickOutside = (event: MouseEvent) => {
+        if (todoRef.current && !todoRef.current.contains(event.target as Node)) {
+            handleSave();
+        }
+    };
+
+    useEffect(() => {
+        if (isEditing) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isEditing]);
+
     return (
         <div ref={setNodeRef} style={style} className='relative p-4 mb-2 bg-background-500 w-[320px] rounded shadow group flex items-center justify-between min-h-20 max-h-50'>
-            <div className='flex items-center justify-between w-full'>
+            <div ref={todoRef} className='flex items-center justify-between w-full'>
                 <div>
                     {isEditing ? (
                         <>
@@ -47,20 +66,18 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
                                 autoFocus
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
-                                onBlur={handleSave}
                                 className='bg-background-100 rounded-md border-1 border-background-200 w-11/12 font-bold'
                             />
                             <textarea
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
-                                onBlur={handleSave}
                                 className='bg-background-100 rounded-md border-1 border-background-200 line-clamp-6 w-11/12 mt-3 h-25 max-h-28'
                             />
                         </>
                     ) : (
                         <>
-                            <h3 className='font-bold'>{todo.title}</h3>
-                            <p className='line-clamp-6'>{todo.description}</p>
+                            <h3 className='font-bold'>{title}</h3>
+                            <p className='line-clamp-6'>{description}</p>
                         </>
                     )}
                 </div>
