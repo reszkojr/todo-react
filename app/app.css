@@ -34,7 +34,21 @@ body {
 		--color-textcolor-800: oklch(60.38% 0.092 185.54);
 		--color-textcolor-900: oklch(52.18% 0.078 184.68);
 		--color-textcolor-950: oklch(47.2% 0.07 185.78);
+
+		--color-gray-50: oklch(49.73% 0.02 201.18);
+		--color-gray-100: oklch(49.73% 0.02 201.18);
+		--color-gray-200: oklch(50.67% 0.021 196.52);
+		--color-gray-300: oklch(52.46% 0.02 200.91);
+		--color-gray-400: oklch(53.42% 0.022 200.66);
+		--color-gray-500: oklch(54.46% 0.021 200.66);
+		--color-gray-600: oklch(47.67% 0.018 201.49);
+		--color-gray-700: oklch(41.01% 0.015 202.73);
+		--color-gray-800: oklch(34.01% 0.012 196.6);
+		--color-gray-900: oklch(26.68% 0.009 196.65);
+		--color-gray-950: oklch(23.13% 0.006 214.42);
 	}
+
+    @theme {  --font-serif: "Source Serif 4", "serif"; }
 
 	@apply bg-background-900 text-textcolor-50;
 	h1 {
@@ -56,6 +70,7 @@ body {
 body {
 	margin: 0;
 	height: 100vh;
+    overflow: hidden;
 	background-image: url('/waves-bg.svg');
 	background-size: cover;
 	background-position: center;

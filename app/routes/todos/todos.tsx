@@ -6,6 +6,7 @@ import TodoItem from '~/components/todos/TodoItem';
 import { useTodo } from '~/contexts/todo/todo.context';
 import Button from '~/components/Button';
 import { LuPlus } from 'react-icons/lu';
+import CreateTodo from '~/components/todos/CreateTodo/';
 
 const statuses = {
 	pending: 'Pending',
@@ -18,8 +19,9 @@ const TodosPage = () => {
 	const [activeId, setActiveId] = useState<UniqueIdentifier | undefined>(undefined);
 	const [droppedItem, setDroppedItem] = useState<UniqueIdentifier | undefined>(undefined);
 	const [todosElements, setTodosElements] = useState<Todo[]>(todos);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const findTodoById = (id: UniqueIdentifier) => todos.find((todo) => todo.id?.toString() === id);
+	const findTodoById = (id: UniqueIdentifier) => todos.find((todo) => todo.id?.toString() === id);
 
 	useEffect(() => {
 		setTodosElements(todos);
@@ -42,27 +44,19 @@ const TodosPage = () => {
 		}
 	};
 
+	const handleCreate = async (newTodo: Todo) => {
+		await createTodo(newTodo);
+		setIsModalOpen(false);
+	};
+
 	return (
-		<>
-			<div className='flex justify-between p-3 mt-6 px-3'>
-				<h1 className='text-2xl font-bold'>To-do list</h1>
-				<Button
-					startIcon={<LuPlus />}
-					type='button'
-					label='Adicionar um Todo'
-					className='text-sm'
-					onClick={async () => {
-						const newTodo: Todo = {
-							title: 'New Todo',
-							description: 'New Todo',
-							status: 'pending',
-						};
-						await createTodo(newTodo);
-					}}
-				/>
+		<div id='todos'>
+			<div className='flex justify-between pt-6 mt-8 pb-4 mb-4 border-b-1 mx-8 border-b-background-300'>
+				<h1 className='text-4xl font-bold'>To-do list</h1>
+				<Button startIcon={<LuPlus />} type='button' label='Create a Todo' className='text-sm' onClick={() => setIsModalOpen(true)} />
 			</div>
 			<DndContext onDragStart={(event: DragStartEvent) => setActiveId(event.active.id)} onDragEnd={updateItems}>
-				<div className='flex space-x-4 p-3'>
+				<div className='flex space-x-4 pt-3 px-8'>
 					{Object.keys(statuses).map((status) => (
 						<DroppableColumn key={status} id={status} title={statuses[status as keyof typeof statuses]}>
 							{todosElements
@@ -75,7 +69,8 @@ const TodosPage = () => {
 					<DragOverlay>{activeId && <TodoItem todo={findTodoById(activeId)!} />}</DragOverlay>
 				</div>
 			</DndContext>
-		</>
+			<CreateTodo isOpen={isModalOpen} handleClose={() => setIsModalOpen(false)} setIsOpen={setIsModalOpen} handleCreate={handleCreate} />
+		</div>
 	);
 };
 

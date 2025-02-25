@@ -7,7 +7,7 @@ const DroppableColumn = ({ id, title, children }: { id: string; title: string; c
 
 	return (
 		<div ref={setNodeRef} className='w-[350px] max-h-[80vh] overflow-y-auto overflow-x-hidden p-4 bg-background-600 rounded-md'>
-			<h2 className='mb-4 text-xs uppercase font-semibold text-gray-100 mix-blend-soft-light'>{title}</h2>
+			<h2 className='mb-4 text-xs uppercase font-semibold text-white mix-blend-soft-light'>{title}</h2>
 			{children}
 		</div>
 	);
