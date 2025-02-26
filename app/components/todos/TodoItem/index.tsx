@@ -23,6 +23,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
 
     const handleDelete = async () => {
         await deleteTodo(todo);
+        toast.success(`Todo "${title}" deleted successfully!`);
     };
 
     const handleEdit = () => {
