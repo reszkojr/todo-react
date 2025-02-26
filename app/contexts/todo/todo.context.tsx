@@ -5,7 +5,7 @@ import type Todo from '~/types/Todo';
 interface TodoContextProps {
     todos: Todo[];
     getTodos: () => Promise<void>;
-    setActiveTodo: (todo: Todo) => void;
+    setActiveTodo: (todo: Todo | null) => void;
     updateTodoStatus: (todoId: number, status: 'pending' | 'in progress' | 'completed') => Promise<void>;
     updateTodo: (todo: Todo) => Promise<Todo>;
     createTodo: (todo: Todo) => Promise<Todo>;

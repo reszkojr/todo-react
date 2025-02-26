@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useTodo } from '~/contexts/todo/todo.context';
 import Button from '~/components/Button';
-import { LuMenu, LuPlus, LuClipboard } from 'react-icons/lu';
+import { LuMenu, LuPlus, LuClipboard, LuTrash2, LuTrash } from 'react-icons/lu';
 import { toast } from 'react-toastify';
 
 const Sidebar = () => {
-	const { activeTodo, updateTodo, isSidebarOpen, toggleSidebar } = useTodo();
+	const { activeTodo, updateTodo, isSidebarOpen, setActiveTodo, toggleSidebar, deleteTodo } = useTodo();
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 
@@ -26,6 +26,14 @@ const Sidebar = () => {
 			toast.success(`Todo "${title}" updated successfully!`);
 		}
 	};
+
+    const handleDelete = async () => {
+        if (activeTodo) {
+            await deleteTodo(activeTodo);
+            toast.success(`Todo "${activeTodo.title}" deleted successfully!`);
+            setActiveTodo(null);
+        }
+    };
 
 	if (!activeTodo) {
 		return (
@@ -60,6 +68,15 @@ const Sidebar = () => {
 				<label className='block text-sm font-medium text-gray-700'>Description</label>
 				<textarea value={description} onChange={(e) => setDescription(e.target.value)} className='mt-1 block w-full h-80 px-3 py-2 bg-background-600 border border-background-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm' />
 			</div>
+            <div>
+                <button
+                    type='button'
+                    onClick={handleDelete}
+                    className='cursor-pointer p-1 text-red-500 hover:text-red-700'
+                >
+                    <LuTrash size={25} />
+                </button>
+            </div>
 		</div>
 	);
 };
