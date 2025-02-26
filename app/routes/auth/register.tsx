@@ -4,9 +4,9 @@ import { useState } from 'react';
 import Button from '~/components/Button';
 import Checkbox from '~/components/Checkbox';
 import FloatingTextInput from '~/components/FloatingTextInput';
-import { register as registerUser } from '~/services/auth.service';
 import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
+import { useAuth } from '~/contexts/auth/auth.context';
 
 export default function Register() {
     const {
@@ -17,15 +17,12 @@ export default function Register() {
     } = useForm();
 
     const navigate = useNavigate();
+    const { register: registerUser } = useAuth();
     const [showPassword, setShowPassword] = useState(false);
 
     const onSubmit = async (data: any) => {
         try {
-            await registerUser({
-                email: data.email,
-                password: data.password,
-                username: data.username,
-            });
+            await registerUser(data.email, data.password, data.username);
             toast.success(
                 <div>
                     Registered successfully!

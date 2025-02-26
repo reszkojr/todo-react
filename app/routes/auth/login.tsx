@@ -5,34 +5,30 @@ import Button from '~/components/Button';
 import Checkbox from '~/components/Checkbox';
 import FloatingTextInput from '~/components/FloatingTextInput';
 import { toast } from 'react-toastify';
-import { login as loginUser } from '~/services/auth.service';
 import { isAxiosError } from 'axios';
+import { useAuth } from '~/contexts/auth/auth.context';
 
 export default function Login() {
     const {
         register,
         handleSubmit,
-        setError,
         formState: { errors },
     } = useForm();
 
     const navigate = useNavigate();
-    const [rememberMe, setRememberMe] = useState(false);
+    const { login } = useAuth();
     const [showPassword, setShowPassword] = useState(false);
 
     const onSubmit = async (data: any) => {
         try {
-            await loginUser({
-                email: data.email,
-                password: data.password,
-            });
+            await login(data.email, data.password);
             toast.success('Login successful!');
             navigate('/todos/view/columns');
         } catch (error) {
             if (isAxiosError(error)) {
                 return toast.error(error.request?.response);
             }
-            toast.error('An unknown error ocurred while logging you in.');
+            toast.error('An unknown error occurred while logging you in.');
         }
     };
 
@@ -53,7 +49,7 @@ export default function Login() {
                     <FloatingTextInput label='Password' name='password' type={showPassword ? 'text' : 'password'} register={register} requiredMessage='Password is required' errorMessage={errors.password?.message as string} className='mb-3' />
                     <Checkbox label='Show password' register={register} checked={showPassword} onChange={setShowPassword} />
                     <div className='flex items-center justify-end'>
-                        <Button type='submit' label='Login' onClick={() => console.log('Button clicked')} className='w-1/3' />
+                        <Button type='submit' label='Login' className='w-1/3' />
                     </div>
                 </form>
             </div>
