@@ -9,11 +9,6 @@ const Sidebar = () => {
 	const [description, setDescription] = useState('');
 
 	useEffect(() => {
-		const mediaQuery = window.matchMedia('(max-width: 768px)');
-		mediaQuery.addEventListener('change', () => {
-			if (!isSidebarOpen) toggleSidebar();
-		});
-
 		if (activeTodo) {
 			setTitle(activeTodo.title);
 			setDescription(activeTodo.description);

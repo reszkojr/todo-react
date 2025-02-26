@@ -22,6 +22,20 @@ export default function Sidebar() {
 		}
 	}, [activeTodo]);
 
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth > 768 && !isSidebarOpen) {
+                toggleSidebar();
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, [isSidebarOpen, toggleSidebar]);
+
 	const handleTodoClick = (todo: Todo) => {
 		setActiveTodo(todo);
 	};
