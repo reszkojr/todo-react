@@ -2,6 +2,7 @@ import { index, layout, route } from '@react-router/dev/routes';
 
 export default [
     index('routes/home.tsx'),
+    route('*', 'routes/not-found.tsx'),
     layout('components/auth/AuthWrapper/index.tsx', [
         route('auth/register', 'routes/auth/register.tsx'),
         route('auth/login', 'routes/auth/login.tsx'),
