@@ -89,7 +89,7 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     const toggleSidebar = () => {
-        setIsSidebarOpen(!isSidebarOpen);
+        setIsSidebarOpen(prev => !prev);
     };
 
     return (
