@@ -1,22 +1,23 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router';
+import { useAuth } from '~/contexts/auth/auth.context';
 
 const ProtectedRoute = () => {
-	const navigator = useNavigate();
-	const location = useLocation();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { isAuthenticated } = useAuth();
 
-	let isAuthenticated;
+    useEffect(() => {
+        if (!isAuthenticated) {
+            navigate('/auth/login');
+        }
+    }, [isAuthenticated, location, navigate]);
 
-	useEffect(() => {
-		isAuthenticated = localStorage.getItem(`auth-tokens-${process.env.NODE_ENV}`) || false;
-		if (!isAuthenticated) {
-			navigator('/auth/login');
-		}
-	}, [location]);
+    if (isAuthenticated) {
+        return <Outlet />;
+    }
 
-	if (isAuthenticated) {
-		return <Outlet />;
-	}
+    return null;
 };
 
 export default ProtectedRoute;
