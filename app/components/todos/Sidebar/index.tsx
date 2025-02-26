@@ -16,7 +16,11 @@ export default function Sidebar() {
     const [activeStatus, setActiveStatus] = useState<keyof typeof statuses>('pending');
 
     const handleTodoClick = (todo: Todo) => {
-        toggleSidebar();
+        const mediaQuery = window.matchMedia('(max-width: 768px)');
+
+        if (mediaQuery.matches) {
+            toggleSidebar();
+        }
         setActiveTodo(todo);
     };
 
