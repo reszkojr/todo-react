@@ -4,6 +4,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { LuGripHorizontal, LuPencil, LuTrash } from 'react-icons/lu';
 import type Todo from '~/types/Todo';
 import { useTodo } from '~/contexts/todo/todo.context';
+import { toast } from 'react-toastify';
 
 const TodoItem = ({ todo }: { todo: Todo }) => {
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
@@ -35,15 +36,16 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
             description,
         });
         setIsEditing(false);
+        toast.success(`Todo "${title}" updated successfully!`);
     };
 
-    const handleClickOutside = (event: MouseEvent) => {
-        if (todoRef.current && !todoRef.current.contains(event.target as Node)) {
-            handleSave();
-        }
-    };
-
+    
     useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (todoRef.current && !todoRef.current.contains(event.target as Node)) {
+                handleSave();
+            }
+        };
         if (isEditing) {
             document.addEventListener('mousedown', handleClickOutside);
         } else {
@@ -53,7 +55,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [isEditing]);
+    }, [isEditing, title, description]);
 
     return (
         <div ref={setNodeRef} style={style} className='relative p-4 mb-2 bg-background-500 w-[320px] rounded shadow group flex items-center justify-between min-h-20 max-h-50'>
