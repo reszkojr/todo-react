@@ -80,7 +80,6 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const deleteTodo = async (todo: Todo) => {
         try {
-            console.log('deleteing todo', todo);
             await deleteTodoService(todo.id!);
             setTodos((prevTodos) => prevTodos.filter((t) => t.id !== todo.id));
         } catch (error) {
