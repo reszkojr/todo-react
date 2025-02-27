@@ -51,7 +51,7 @@ const TodosPage = () => {
     };
 
     return (
-        <div id='todos'>
+        <div id='todos' className='h-full'>
             <div className='flex justify-between pt-6 mt-8 pb-4 mb-4 border-b-1 mx-8 border-b-background-300'>
                 <h1 className='text-4xl font-bold'>To-do list</h1>
                 <div className="flex items-center gap-6">

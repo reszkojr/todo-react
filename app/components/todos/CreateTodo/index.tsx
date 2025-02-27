@@ -1,8 +1,9 @@
-import { useState, type FC, type FormEvent } from 'react';
+import { useState, type FC, type FormEvent, type SelectHTMLAttributes } from 'react';
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react';
 import FloatingTextInput from '~/components/FloatingTextInput';
 import Button from '~/components/Button';
 import type Todo from '~/types/Todo';
+import { toast } from 'react-toastify';
 
 interface CreateTodoProps {
 	isOpen: boolean;
@@ -14,15 +15,25 @@ interface CreateTodoProps {
 const CreateTodo: FC<CreateTodoProps> = ({ isOpen, setIsOpen, handleClose, handleCreate }) => {
 	const [title, setTitle] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
-	const [status, setStatus] = useState<'pending' | 'in progress' | 'completed'>('pending');
+	const [status, setStatus] = useState<'pending' | 'in progress' | 'completed' | ''>('');
 
 	const onSubmit = (e: FormEvent) => {
 		e.preventDefault();
-		handleCreate({ title, description, status });
+		if (status === '') {
+			return toast.error('Please select a valid status.');
+		}
+
+		handleCreate({ title, description, status: status as 'pending' | 'in progress' | 'completed' });
 		setTitle('');
 		setDescription('');
-		setStatus('pending');
+		setStatus('');
 		handleClose();
+	};
+
+	const handleSelectStatus = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		const status = event.target.value;
+
+        setStatus(status as 'pending' | 'in progress' | 'completed' | '');
 	};
 
 	return (
@@ -40,11 +51,18 @@ const CreateTodo: FC<CreateTodoProps> = ({ isOpen, setIsOpen, handleClose, handl
 						<div className='px-6 pt-6'>
 							<FloatingTextInput label='Title' name='title' type='text' register={() => ({ onChange: (e: any) => setTitle(e.target.value), value: title })} requiredMessage='Title is required' errorMessage='' />
 							<FloatingTextInput label='Description' name='description' type='text' register={() => ({ onChange: (e: any) => setDescription(e.target.value), value: description })} requiredMessage='Description is required' errorMessage='' />
-							<FloatingTextInput label='Status' name='status' type='text' register={() => ({ onChange: (e: any) => setStatus(e.target.value), value: status })} requiredMessage='Status is required' errorMessage='' />
+							<div className='mt-4'>
+								<select id='status' name='status' className='w-full px-3 py-4 mt-1 rounded-xl border-0 shadow-sm bg-gray-700 text-teal-100 focus:outline-none focus:ring focus:ring-teal-500' value={status} onChange={handleSelectStatus}>
+									<option value=''>Status</option>
+									<option value='pending'>Pending</option>
+									<option value='in progress'>In Progress</option>
+									<option value='completed'>Completed</option>
+								</select>
+							</div>
 						</div>
 						<div className='bg-background-500 px-4 gap-3 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
-							<Button type='submit' label='Create' className='text-sm'/>
-							<Button type='button' label='Cancel' onClick={handleClose} className='text-sm'/>
+							<Button type='submit' label='Create' className='text-sm' />
+							<Button type='button' label='Cancel' onClick={handleClose} className='text-sm' />
 						</div>
 					</form>
 				</DialogPanel>
