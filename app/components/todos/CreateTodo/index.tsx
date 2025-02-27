@@ -22,6 +22,12 @@ const CreateTodo: FC<CreateTodoProps> = ({ isOpen, setIsOpen, handleClose, handl
 		if (status === '') {
 			return toast.error('Please select a valid status.');
 		}
+        if (title === '') {
+            return toast.error('Title is required.');
+        }
+        if (description === '') {
+            return toast.error('Description is required.');
+        }   
 
 		handleCreate({ title, description, status: status as 'pending' | 'in progress' | 'completed' });
 		setTitle('');
