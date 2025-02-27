@@ -4,6 +4,7 @@ import FloatingTextInput from '~/components/FloatingTextInput';
 import Button from '~/components/Button';
 import type Todo from '~/types/Todo';
 import { toast } from 'react-toastify';
+import { useEffect } from 'react';
 
 interface CreateTodoProps {
 	isOpen: boolean;
@@ -16,6 +17,14 @@ const CreateTodo: FC<CreateTodoProps> = ({ isOpen, setIsOpen, handleClose, handl
 	const [title, setTitle] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
 	const [status, setStatus] = useState<'pending' | 'in progress' | 'completed' | ''>('');
+
+    useEffect(() => {
+        if (!isOpen) {
+            setTitle('');
+            setDescription('');
+            setStatus('');
+        }
+    }, [isOpen]);
 
 	const onSubmit = (e: FormEvent) => {
 		e.preventDefault();
